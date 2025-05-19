@@ -7,4 +7,4 @@ function cuadrado(numero) {
 
 let cuadrado2 = numero => numero * numero;
 
-console.log(cuadrado2(5));
+console.log(cuadrado2(8));
