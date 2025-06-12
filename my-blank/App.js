@@ -5,9 +5,9 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 
 const Texto=(props)=>{
-  const {contenido}=props
+  const {children}=props
   return(
-    <Text> {contenido} </Text>
+    <Text> {children} </Text>
   )
 }
 
@@ -18,11 +18,10 @@ export default function App() {
 
     <View style={styles.container}>
       
-      <Texto contenido="Come"></Texto>
-      <Texto contenido="Tierra"></Texto>
-      <Texto contenido="Polo"></Texto>
+      <Texto> Come </Texto>
+      <Texto> Tierra </Texto>
+      <Texto> Polo </Texto>
       <Button title="Button.jpg"></Button>
-      
       <StatusBar style="auto" />
     </View>
   );
