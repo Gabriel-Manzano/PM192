@@ -1,100 +1,73 @@
 // Zona 1 Importaciones
 
-import React, { useState } from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, SafeAreaView } from 'react-native'
 
+const FondoBienvenida = () => {
+return (
+  <ImageBackground source={require('./assets/fondo.jpg')}>
+    <View>
+      <Text>¡Bienvenido a la App!</Text>
+    </View>
+  </ImageBackground>
+  );
+};
 
 // Zona 2 Main
 
 export default function App() {
-  
-  const [activarSwitch, setActivarSwitch] = useState(false);
-  const [modoOscuro, setModoOscuro] = useState(false);
 
-  return (
-    <SafeAreaProvider>
-      <SafeAreaView style={[styles.contenedor, modoOscuro && styles.fondoOscuro]}>
-        
-        {/* Título del programa */}
+  const [showSplash, setShowSplash] = useState(true);
 
-        <Text style={[styles.titulo, modoOscuro && styles.textoClaro]}>
-          Práctica con Switch
-        </Text>
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 5000);
 
-        {/* Switch 1: Activar switch */}
+    return () => clearTimeout(timer);
+    },[]);
 
-        <View style={styles.opcion}>
-          <Text style={[styles.etiqueta, modoOscuro && styles.textoClaro]}>
-            Activar switch 2
-          </Text>
-          <Switch
-            value={activarSwitch}
-            onValueChange={setActivarSwitch}
-            trackColor={{ false: '#ccc', true: '#4caf50' }}
-            thumbColor={activarSwitch ? '#ffffff' : '#999999'}
-          />
-        </View>
-
-        {/* Switch 2: Modo oscuro */}
-
-        <View style={styles.opcion}>
-          <Text style={[styles.etiqueta, modoOscuro && styles.textoClaro]}>
-            Modo oscuro
-          </Text>
-          <Switch
-            value={modoOscuro}
-            onValueChange={setModoOscuro}
-            disabled={!activarSwitch}
-            trackColor={
-              !activarSwitch
-                ? { false: '#ff9999', true: '#ff3b30' }
-                : { false: '#ccc', true: '#4caf50' }
-            }
-            thumbColor={
-              !activarSwitch
-                ? '#ff3b30'
-                : modoOscuro
-                ? '#ffffff'
-                : '#999999'
-            }
-          />
-        </View>
-
-      </SafeAreaView>
-    </SafeAreaProvider>
+  return(
+    <SafeAreaView style={styles.container}>
+      {showSplash ? (
+        <FondoBienvenida />
+      ):(
+      <View style={styles.mainContent}>
+        <Text style={styles.mainText}>Pantalla principal</Text>
+      </View>
+    )}
+    </SafeAreaView>
   );
 }
-
 
 // Zona 3 Estilos
 
 const styles = StyleSheet.create({
-  contenedor: {
+  container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 30,
-    justifyContent: 'center',
   },
-  fondoOscuro: {
-    backgroundColor: '#1a1a1a',
+  fondo: {
+    flex: 1,
+  },
+  contenido: {
+    backgroundColor: "#1a1a1a",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   titulo: {
-    fontSize: 24,
-    marginBottom: 40,
-    textAlign: 'center',
+    fontSize: 28,
+    color: 'white',
     fontWeight: 'bold',
   },
-  textoClaro: {
-    color: '#ffffff',
-  },
-  opcion: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 30,
+  mainContent: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  etiqueta: {
-    fontSize: 18,
-  },
+  mainText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  }
 });
